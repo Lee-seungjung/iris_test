@@ -24,16 +24,74 @@
 
 <script>
 	$(function(){
+		//모달 숨기기
+		$("#loginModal").attr("style","display:none;");
+		
 		//비밀번호 숨김해제
 		$(".fa-eye").click(function(){
 			var type = $("[name=pw]").attr("type");
-			console.log(type);
 			if(type=='password'){
 				$("[name=pw]").attr("type","text");
 			}else{
 				$("[name=pw]").attr("type","password");
 			}
 		});
+		
+		//입력창 유효성검사
+		inputCheck={
+				id : false,
+				pw : false,
+				allValid:function(){
+					return this.id && this.pw;
+				}
+		};
+		
+		$(".login-btn").click(function(){
+			var idInput = $("[name=id]").val();
+			var pwInput = $("[name=pw]").val();
+			
+			if(idInput!='' && pwInput!=''){
+				inputCheck.id=true;
+				inputCheck.pw=true;
+			}else if(idInput==''){
+				$(".modal-text").text('비밀번호를 입력하여 주십시오.');
+				$("#loginModal").modal('show');
+				inputCheck.pw=false;
+			}else{
+				$(".modal-text").text('비밀번호를 입력하여 주십시오.');
+				$("#loginModal").modal('show');
+				inputCheck.pw=false;
+			}
+			
+			loginData = {
+					id:idInput,
+					pw:pwInput
+			}
+			if(inputCheck.allValid()){
+				$.ajax({
+					url:"/rest/login",
+					method:"post",
+					data:loginData,
+					success:function(resp){
+						if(resp==false){
+							$(".modal-text").text('아이디 또는 비밀번호를 찾을 수 없습니다.');
+							$("#loginModal").modal('show');
+							inputCheck.pw=false;
+						}else{
+							location.href="/";
+						}
+					}
+				});
+			}
+			
+			
+			
+			
+			
+		});
+		
+		
+		
 		
 	});
 </script>
@@ -63,11 +121,25 @@
 						</div>
 						<div>
 							<div class="p-2 text-center">
-								<button type="submit" class="btn btn-primary w-50">로그인</button>
+								<button type="submit" class="btn btn-primary w-50 login-btn">로그인</button>
 							</div>
 						</div>
 					</div>
 				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- 모달 -->
+	<div id="loginModal" class="modal fade" tabindex="-1">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-body text-center">
+					<span class="modal-text "></span>
+				</div>
+				<div class="modal-footer justify-content-center">
+					<button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+				</div>	
 			</div>
 		</div>
 	</div>

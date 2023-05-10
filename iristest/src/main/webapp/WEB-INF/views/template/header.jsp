@@ -49,7 +49,16 @@
 	.cursor-pointer{
 		cursor: pointer;
 	}
+	.modal-footer{
+		border-top:none;
+		padding:0 0.75rem 0.75rem;
+	}
+	.modal-backdrop{
+		background-color: rgba(0,0,0,0);
+	}
 </style>
+
+
 </head>
 <body>
 

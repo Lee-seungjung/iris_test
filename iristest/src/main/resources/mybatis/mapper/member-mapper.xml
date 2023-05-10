@@ -6,10 +6,24 @@
 
 <mapper namespace="member">
 
-	<!-- 회원 단일조회 -->
-	<select id="selectOne" resultType="MemberDto" parameterType="int">
+	<!-- 회원 단일조회(번호) -->
+	<select id="selectOneNo" resultType="MemberDto" parameterType="int">
 		select * from member where member_no=#{memberNo}
 	</select>
+	
+	<!-- 회원 단일조회(아이디) -->
+	<select id="selectOneId" resultType="MemberDto" parameterType="String">
+		select * from member where id=#{Id}
+	</select>
 
+	<!-- salt 조회(아이디) -->
+	<select id="findSalt" resultType="String" parameterType="String">
+		select salt from member where id=#{Id}
+	</select>
+	
+	<!-- pw 확인(비밀번호) -->
+	<select id="pwCheck" resultType="MemberDto" parameterType="String">
+		select * from member where pw=#{pw}
+	</select>
 	
 </mapper>
