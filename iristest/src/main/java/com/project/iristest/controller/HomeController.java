@@ -23,7 +23,7 @@ public class HomeController {
 		 if(memberNo !=null) { 
 			 MemberDto dto = memberDao.selectOne(memberNo); 
 			 model.addAttribute("loginNo" , memberNo);
-			 model.addAttribute("name",dto.getName());
+			 model.addAttribute("member",dto);
 		}
 		return "home";
 	}

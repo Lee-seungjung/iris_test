@@ -4,6 +4,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,7 +22,7 @@ public class MemberRestController {
 	private MemberDao memberDao;
 	
 	@PostMapping("/login")
-	public boolean login(LoginVO inputVO, HttpSession session) {
+	public boolean login(@RequestBody LoginVO inputVO, HttpSession session) {
 		try {
 			MemberDto dto = memberDao.selectOne(inputVO.getId()); //회원여부 확인
 			
@@ -39,7 +41,12 @@ public class MemberRestController {
 		}catch(Exception e) {
 			return false;
 		}
-		
+	}
+	
+	@PutMapping("/mypage")
+	public boolean mypage(@RequestBody MemberDto dto) {
+		System.out.println(dto);
+		return memberDao.update(dto);
 	}
 	
 }

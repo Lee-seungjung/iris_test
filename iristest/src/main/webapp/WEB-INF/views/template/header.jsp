@@ -58,6 +58,14 @@
 	.modal-backdrop{
 		background-color: rgba(0,0,0,0);
 	}
+	.btn.btn-primary{
+		background-color: #07114B;
+  		border-color: #07114B;
+	}
+	.list-group-item-action.active {
+		background-color: #07114B;
+  		border-color: #07114B;
+	}
 </style>
 
 
@@ -71,7 +79,7 @@
 			<a class="navbar-brand strong" href="/">아이리스 연구소 게시판</a>
 		</div>
 		<div class="p-2 flex-row-reverse">
-			<span class="">안녕하세요. <a href="/mypage" class="strong">${name}</a> 님</span>
+			<span class="">안녕하세요. <a href="/mypage" class="strong">${member.name}</a> 님</span>
 			<c:choose>
 				<c:when test="${loginNo!=null}">
 					<a href="/logout" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그아웃</a>
@@ -85,3 +93,4 @@
 	</div>
 </nav>
 
+<input type="hidden" value="${loginNo}" name="memberNo">

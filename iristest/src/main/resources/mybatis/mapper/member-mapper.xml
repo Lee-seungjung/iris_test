@@ -26,4 +26,11 @@
 		select * from member where pw=#{pw}
 	</select>
 	
+	<!-- 회원정보 수정(MemberDto) -->
+	<update id="updateMember" parameterType="MemberDto">
+		update member set name=#{name}, tel=#{tel}, cell=#{cell}, team=#{team},
+		job=#{job}, position=#{position}, responsibility=#{responsibility}, remarks=#{remarks}
+		where member_no=#{memberNo}
+	</update>
+	
 </mapper>

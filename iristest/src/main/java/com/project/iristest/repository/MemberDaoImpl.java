@@ -13,14 +13,6 @@ public class MemberDaoImpl implements MemberDao{
 	private SqlSession sqlSession;
 
 	/**
-	 * 회원정보 수정(memberDto)
-	 */
-	@Override
-	public boolean update(MemberDto dto) {
-		return sqlSession.update("member.update")>0;
-	}
-	
-	/**
 	 * 회원정보 단일조회(회원번호)
 	 */
 	@Override
@@ -51,5 +43,16 @@ public class MemberDaoImpl implements MemberDao{
 	public MemberDto pwCheck(String pw) {
 		return sqlSession.selectOne("member.pwCheck",pw);
 	}
+	
+	/**
+	 * 회원정보 수정(memberDto)
+	 */
+	@Override
+	public boolean update(MemberDto dto) {
+		boolean check =  sqlSession.update("member.updateMember")>0;
+		System.out.println(check);
+		return sqlSession.update("member.updateMember")>0;
+	}
+	
 	
 }
