@@ -27,7 +27,7 @@ public class MemberRestController {
 			MemberDto dto = memberDao.selectOne(inputVO.getId()); //회원여부 확인
 			
 			if(dto!=null) { //비밀번호 확인
-				String saveSalt = memberDao.findSalt(inputVO.getId()); //DB저장 salt
+				String saveSalt = dto.getSalt(); //DB저장 salt
 				SHA256Encrypt encrypt = new SHA256Encrypt();
 				String pwCheck = encrypt.getEncrypt(inputVO.getPw(), saveSalt); //암호화 처리된 입력pw
 				
@@ -45,7 +45,6 @@ public class MemberRestController {
 	
 	@PutMapping("/mypage")
 	public boolean mypage(@RequestBody MemberDto dto) {
-		System.out.println(dto);
 		return memberDao.update(dto);
 	}
 	

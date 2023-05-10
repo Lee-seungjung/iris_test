@@ -30,14 +30,33 @@ public class BoardController {
 	}
 
 	//상세
-	@GetMapping("/edit")
-	public String edit(HttpSession session, Model model) {
-		//Integer memberNo = (Integer)session.getAttribute("loginNo");
-		//MemberDto dto = memberDao.selectOne(memberNo); 
-		//model.addAttribute("member",dto);
-		
+	@GetMapping("/detail")
+	public String detail(HttpSession session, Model model) {
+		Integer memberNo = (Integer)session.getAttribute("loginNo");
+		MemberDto dto = memberDao.selectOne(memberNo); 
+		model.addAttribute("member",dto);
 		
 		return "board/detail";
+	}
+	
+	//수정
+	@GetMapping("/edit")
+	public String edit(HttpSession session, Model model) {
+		Integer memberNo = (Integer)session.getAttribute("loginNo");
+		MemberDto dto = memberDao.selectOne(memberNo); 
+		model.addAttribute("member",dto);
+		
+		return "board/edit";
+	}
+	
+	//조회
+	@GetMapping("/list")
+	public String list(HttpSession session, Model model) {
+		Integer memberNo = (Integer)session.getAttribute("loginNo");
+		MemberDto dto = memberDao.selectOne(memberNo); 
+		model.addAttribute("member",dto);
+		
+		return "board/list";
 	}
 	
 }

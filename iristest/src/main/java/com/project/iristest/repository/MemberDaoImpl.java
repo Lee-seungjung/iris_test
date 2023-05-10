@@ -27,14 +27,6 @@ public class MemberDaoImpl implements MemberDao{
 	public MemberDto selectOne(String id) {
 		return sqlSession.selectOne("member.selectOneId",id);
 	}
-
-	/**
-	 * salt 조회
-	 */
-	@Override
-	public String findSalt(String memberId) {
-		return sqlSession.selectOne("member.findSalt",memberId);
-	}
 	
 	/**
 	 * pw 확인
@@ -49,8 +41,7 @@ public class MemberDaoImpl implements MemberDao{
 	 */
 	@Override
 	public boolean update(MemberDto dto) {
-		System.out.println(sqlSession.update("member.updateMember"));
-		return sqlSession.update("member.updateMember")>0;
+		return sqlSession.update("member.updateMember",dto)>0;
 	}
 	
 	

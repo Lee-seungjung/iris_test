@@ -79,9 +79,9 @@
 			<a class="navbar-brand strong" href="/">아이리스 연구소 게시판</a>
 		</div>
 		<div class="p-2 flex-row-reverse">
-			<span class="">안녕하세요. <a href="/mypage" class="strong">${member.name}</a> 님</span>
 			<c:choose>
 				<c:when test="${loginNo!=null}">
+					<span class="">안녕하세요. <a href="/mypage" class="strong">${member.name}</a> 님</span>
 					<a href="/logout" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그아웃</a>
 				</c:when>
 				<c:otherwise>

@@ -8,17 +8,18 @@
 
 	<!-- 회원 단일조회(번호) -->
 	<select id="selectOneNo" resultType="MemberDto" parameterType="int">
-		select * from member where member_no=#{memberNo}
+		select member_no, id, aes_decrypt(unhex(name),'iris') as name,
+			aes_decrypt(unhex(tel),'iris') as tel, aes_decrypt(unhex(cell),'iris') as cell,
+			team, job, position, responsibility, remarks, salt
+		from member where member_no=#{memberNo}
 	</select>
 	
 	<!-- 회원 단일조회(아이디) -->
 	<select id="selectOneId" resultType="MemberDto" parameterType="String">
-		select * from member where id=#{Id}
-	</select>
-
-	<!-- salt 조회(아이디) -->
-	<select id="findSalt" resultType="String" parameterType="String">
-		select salt from member where id=#{Id}
+		select member_no, id, aes_decrypt(unhex(name),'iris') as name,
+			aes_decrypt(unhex(tel),'iris') as tel, aes_decrypt(unhex(cell),'iris') as cell,
+			team, job, position, responsibility, remarks, salt
+		from member where id=#{Id}
 	</select>
 	
 	<!-- pw 확인(비밀번호) -->
@@ -26,9 +27,10 @@
 		select * from member where pw=#{pw}
 	</select>
 	
-	<!-- 회원정보 수정(MemberDto) -->
+	<!-- 회원정보 수정(MemberEditVO) -->
 	<update id="updateMember" parameterType="MemberDto">
-		update member set name=#{name}, tel=#{tel}, cell=#{cell}, team=#{team},
+		update member set name=hex(aes_encrypt(#{name}, 'iris'))	, 
+		tel=hex(aes_encrypt(#{tel}, 'iris')), cell=hex(aes_encrypt(#{cell}, 'iris')), team=#{team},
 		job=#{job}, position=#{position}, responsibility=#{responsibility}, remarks=#{remarks}
 		where member_no=#{memberNo}
 	</update>

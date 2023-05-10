@@ -8,8 +8,6 @@ public interface MemberDao {
 	MemberDto selectOne(int memberNo);
 	//단일조회(아이디)
 	MemberDto selectOne(String memberId);
-	//salt 조회
-	String findSalt(String memberId);
 	//pw 확인
 	MemberDto pwCheck(String pw);
 	

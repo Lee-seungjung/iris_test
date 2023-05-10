@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp">
-	<jsp:param value="게시글 등록" name="title"/>
+	<jsp:param value="게시글 목록" name="title"/>
 </jsp:include>
 
 <style>
@@ -20,18 +20,8 @@
 
 <script>
 	$(function(){
-		//사이드바 설정
-		$(".list-group-item").removeClass("active");
-		$(".sb-write").addClass("active");
 		
-		//달력 초기설정-이전날짜 막기&첫 달력날짜 오늘로 설정
-		var now = Date.now() // 지금 날짜를 밀리초로
-		var milli = new Date().getTimezoneOffset()*60000; // 분단위를 밀리초로 변환
-		var today = new Date(now-milli).toISOString().split("T")[0]; //'2022-05-11T18:09:38.134Z'를 반환
-		document.getElementById("startDate").setAttribute("min", today);
-		$("[name=startTime]").val(today);
-		
-		
+		    
 		
 	});
 </script>
@@ -44,12 +34,11 @@
 		</div>
 		<div class = "col-8">
 			<div class="light-primary p-1 mb-2">
-				<span class="ms-1">▌게시판 > 등록</span>
+				<span class="ms-1">▌게시판 > 목록</span>
 			</div>
 			<div class="mx-1">
 				<div class="mt-2 mb-2">
-					<span class="strong fs-14">• 글 신규 등록</span>
-					<span class="fs-14">*표시 필수 입력 항목</span>
+					<span class="strong fs-14">• 게시판 조회</span>
 				</div>
 				<div>
 					<table class="table align-middle">
@@ -66,10 +55,10 @@
 								</td>
 								<th class="table-active">* 게시기간</th>
 								<td>
-									<input type="checkbox" class="ckbox" checked>
+									<input type="checkbox" value="" name="">
 									<span style="font-size:15px;" class="mx-1">무제한</span>
-									<input type="date" class="me-1" name="startTime" id="startDate"> ~ 
-									<input type="date" class="ms-1" name="endTime" disabled>
+									<input type="date" class="me-1" name="startTime"> ~ 
+									<input type="date" class="ms-1" name="endTime">
 								</td>
 							</tr>
 							<tr>

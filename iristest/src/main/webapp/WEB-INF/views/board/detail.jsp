@@ -79,8 +79,8 @@
 					</table>
 				</div>
 				<div class="text-center mt-3">
-					<button class="btn btn-primary m3-1 edit-btn">수정</button>
-					<button class="btn btn-primary m3-1 delete-btn">삭제</button>
+					<button class="btn btn-primary me-1 edit-btn">수정</button>
+					<button class="btn btn-primary delete-btn">삭제</button>
 					<a href="/board" class="btn btn-secondary ms-1">목록</a>
 				</div>
 			</div>

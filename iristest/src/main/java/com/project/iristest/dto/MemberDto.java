@@ -18,4 +18,5 @@ public class MemberDto {
 	private String position;
 	private String responsibility;
 	private String remarks;
+	private String salt;
 }
