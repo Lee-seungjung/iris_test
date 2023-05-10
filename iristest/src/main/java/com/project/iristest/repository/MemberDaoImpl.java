@@ -49,8 +49,7 @@ public class MemberDaoImpl implements MemberDao{
 	 */
 	@Override
 	public boolean update(MemberDto dto) {
-		boolean check =  sqlSession.update("member.updateMember")>0;
-		System.out.println(check);
+		System.out.println(sqlSession.update("member.updateMember"));
 		return sqlSession.update("member.updateMember")>0;
 	}
 	

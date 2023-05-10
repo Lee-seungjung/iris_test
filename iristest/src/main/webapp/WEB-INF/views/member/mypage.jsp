@@ -101,12 +101,12 @@
 		</div>
 		<div class = "col-8">
 			<div class="light-primary p-1 mb-2">
-				<span class="ms-1">마이페이지</span>
+				<span class="ms-1">▌마이페이지</span>
 			</div>
 			<div class="mx-1">
 				<div class="mt-2 mb-2">
-					<span class="strong fs-12">개인정보 수정 </span>
-					<span class="fs-12">*표시 필수 입력 항목</span>
+					<span class="strong fs-14">개인정보 수정 </span>
+					<span class="fs-14">*표시 필수 입력 항목</span>
 				</div>
 				<div>
 					<table class="table align-middle">

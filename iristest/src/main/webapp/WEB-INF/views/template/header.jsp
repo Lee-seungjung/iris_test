@@ -45,8 +45,8 @@
 	.light-primary{
 		background-color:#cfdffa;
 	}
-	.fs-12{
-		font-size:12.5px;
+	.fs-14{
+		font-size:14px;
 	}
 	.cursor-pointer{
 		cursor: pointer;

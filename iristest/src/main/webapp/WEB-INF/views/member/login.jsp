@@ -65,7 +65,8 @@
 				$.ajax({
 					url:"/rest/login",
 					method:"post",
-					data:loginData,
+					data:JSON.stringify(loginData),
+            		contentType: 'application/json',
 					success:function(resp){
 						if(resp==false){
 							$(".modal-text").text('아이디 또는 비밀번호를 찾을 수 없습니다.');
