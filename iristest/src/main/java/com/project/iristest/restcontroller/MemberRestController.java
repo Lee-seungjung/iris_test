@@ -31,7 +31,7 @@ public class MemberRestController {
 				
 				MemberDto pwCheckDto = memberDao.pwCheck(pwCheck);
 				if(pwCheckDto!=null) {
-					session.setAttribute("loginId", pwCheckDto.getMemberNo()); //세션 저장
+					session.setAttribute("loginNo", pwCheckDto.getMemberNo()); //세션 저장
 					return true;
 				}
 			}

@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
 <!DOCTYPE html>
 <html>
 <%-- 헤더 --%>
@@ -69,8 +71,16 @@
 			<a class="navbar-brand strong" href="/">아이리스 연구소 게시판</a>
 		</div>
 		<div class="p-2 flex-row-reverse">
-			<span class="">안녕하세요. <a href="/mypage" class="strong">홍길동</a> 님</span>
-			<a href="/login" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그인</a>
+			<span class="">안녕하세요. <a href="/mypage" class="strong">${name}</a> 님</span>
+			<c:choose>
+				<c:when test="${loginNo!=null}">
+					<a href="/logout" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그아웃</a>
+				</c:when>
+				<c:otherwise>
+					<a href="/login" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그인</a>
+				</c:otherwise>
+			</c:choose>
+			
 		</div>
 	</div>
 </nav>

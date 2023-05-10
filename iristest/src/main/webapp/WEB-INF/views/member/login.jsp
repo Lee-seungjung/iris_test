@@ -46,6 +46,7 @@
 				}
 		};
 		
+		//로그인
 		$(".login-btn").click(function(){
 			var idInput = $("[name=id]").val();
 			var pwInput = $("[name=pw]").val();
@@ -83,11 +84,6 @@
 					}
 				});
 			}
-			
-			
-			
-			
-			
 		});
 		
 		

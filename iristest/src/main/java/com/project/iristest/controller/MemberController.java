@@ -33,8 +33,7 @@ public class MemberController {
 	
 	@GetMapping("/mypage")
 	public String mypage(HttpSession session, Model model) {
-		//int memberNo = (int)session.getAttribute("loginNo");
-		int memberNo = 1;
+		int memberNo = (int)session.getAttribute("loginNo");
 		model.addAttribute("member", memberDao.selectOne(memberNo));
 		return "member/mypage";
 	}
