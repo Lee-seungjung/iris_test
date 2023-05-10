@@ -7,8 +7,8 @@
 
 <div class = "container-fluid mb-4">
 	<div class = "row">
-		<div class = "col-8 offset-2">
-			<h1>메인</h1>
+		<div class = "col-8 offset-2 mt-3">
+			<h1>메인 페이지 입니다.</h1>
 		</div>
 	</div>
 </div>
