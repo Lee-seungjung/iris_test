@@ -68,6 +68,9 @@ public class BoardController {
 		MemberDto dto = memberDao.selectOne(memberNo); 
 		model.addAttribute("member",dto);
 		
+		//목록 출력
+		model.addAttribute("list", boardDao.list());
+		
 		return "board/list";
 	}
 	

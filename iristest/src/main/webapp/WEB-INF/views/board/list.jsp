@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp">
 	<jsp:param value="게시글 목록" name="title"/>
@@ -9,7 +10,7 @@
 	th{
 		font-size:15px;
 	}
-	td, option{
+	td, option, td>a{
 		font-size:14.5px;
 	}
 	input, select, textarea{
@@ -80,7 +81,7 @@
 				</div>
 			      
 				<div class="mt-2">
-					<table class="table">
+					<table class="table align-middle">
 						<tbody>
 							<tr class="text-center" style="background-color:#7F7F7F; color:#fff">
 								<th style="width:10%;">번호</th>
@@ -89,6 +90,19 @@
 								<th style="width:10%;">등록자</th>
 								<th style="width:20%;">등록 일시</th>
 							</tr>
+							
+							<c:forEach var="list" items="${list}">
+								<tr class="text-center">
+									<td>${list.boardNo}</td>
+									<td>${list.category}</td>
+									<td>
+										<a href="/board/detail?boardNo=${list.boardNo}">${list.title}</a>
+									</td>
+									<td>${list.writer}</td>
+									<td>${list.startDate}</td>
+								</tr>
+							</c:forEach>
+							
 						</tbody>
 					</table>
 				</div>

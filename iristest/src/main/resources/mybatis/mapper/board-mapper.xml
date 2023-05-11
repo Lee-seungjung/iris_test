@@ -10,8 +10,13 @@
 	<insert id="insert" parameterType="BoardDto">
 		insert into board(member_no, category, title, writer, content, start_date, end_time)
 		values(#{memberNo}, #{category}, #{title}, #{writer}, #{content},
-		#{startDate}, #{endTime});
+		#{startDate}, #{endTime})
 	</insert>
+	
+	<!-- 조회 -->
+	<select id="selectList" resultType="BoardDto">
+		select board_no, category, title, writer, start_date from board order by board_no desc
+	</select>
 	
 	
 	
