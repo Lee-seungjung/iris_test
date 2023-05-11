@@ -15,11 +15,10 @@
 	
 	<!-- 조회 -->
 	<select id="selectList" resultType="BoardDto">
-		<![CDATA[
+		select * from (
 			select board_no, category, title, writer, start_date from board 
-			where start_date <= now() and end_time >= now() order by board_no desc 
-		]]>
-		
+			where <![CDATA[start_date <= now() and end_time >= now() ]]>order by board_no desc
+		) a limit 0, 20
 	</select>
 	
 	
