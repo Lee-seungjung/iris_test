@@ -15,7 +15,11 @@
 	
 	<!-- 조회 -->
 	<select id="selectList" resultType="BoardDto">
-		select board_no, category, title, writer, start_date from board order by board_no desc
+		<![CDATA[
+			select board_no, category, title, writer, start_date from board 
+			where start_date <= now() and end_time >= now() order by board_no desc 
+		]]>
+		
 	</select>
 	
 	
