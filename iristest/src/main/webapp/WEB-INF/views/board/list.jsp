@@ -37,8 +37,19 @@
 
 <script>
 	$(function(){
-		
-		    
+		//모달 숨기기
+        $("#searchModal").attr("style","display:none;");
+        
+        //조회 버튼
+        $(".search-btn").click(function(){
+           var input = $("[name=keyword]").val();
+           if(input.length==0){
+              $(".modal-text").text('검색어를 입력하여 주십시오.');
+              $("#searchModal").modal('show');
+              return;
+           }
+        });
+
 		
 	});
 </script>
@@ -142,5 +153,20 @@
 				
 			</div>
 		</div>
+		
+		<!-- 모달 -->
+		<div id="searchModal" class="modal fade" tabindex="-1">
+		   <div class="modal-dialog">
+		      <div class="modal-content">
+		         <div class="modal-body text-center">
+		            <span class="modal-text "></span>
+		         </div>
+		         <div class="modal-footer justify-content-center">
+		            <button type="button" class="btn btn-primary" data-bs-dismiss="modal">확인</button>
+		         </div>   
+		      </div>
+		   </div>
+		</div>
+   
 	</div>
 </div>
