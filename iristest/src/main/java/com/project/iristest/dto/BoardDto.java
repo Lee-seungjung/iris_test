@@ -1,7 +1,5 @@
 package com.project.iristest.dto;
 
-import java.sql.Date;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -13,7 +11,8 @@ public class BoardDto {
 	private int memberNo;
 	private String category;
 	private String title;
+	private String writer;
 	private String content;
-	private Date startDate;
-	private Date endTime;
+	private String startDate;
+	private String endTime;
 }

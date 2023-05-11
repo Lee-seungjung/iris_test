@@ -15,7 +15,23 @@
 	input, select, textarea{
 		border: 1px solid rgba(0, 0, 0, 0.1);
 		padding:0.2rem 1rem;
+		
 	}
+	.search-box{
+		background-color:#E5E5E5;
+		border:1px solid rgba(0, 0, 0, 0.125);
+	}
+	.page-item.active .page-link{
+		background-color: #07114B;
+	    border-color: #07114B;
+	}
+	.page-link{
+		color:#07114B;
+	}
+	.page-link:hover{
+		color: #07114B;
+	}
+
 </style>
 
 <script>
@@ -40,49 +56,77 @@
 				<div class="mt-2 mb-2">
 					<span class="strong fs-14">• 게시판 조회</span>
 				</div>
-				<div>
-					<table class="table align-middle">
+				<div class="search-box d-flex flex-row align-items-center p-2">
+			         <div class="me-2">
+			            <span class="strong" style="font-size:16px;">> 검색어</span>
+			         </div>
+			         <div class="me-2">
+			            <select name="category" class="form-select form-select-sm" style="font-size:16px;">
+			               <option>검색어 구분</option>
+			               <option value="title">제목</option>
+			               <option value="writer">등록자</option>
+			            </select>
+			         </div>
+			         <div class="me-2">
+			            <input type="text" name="keyword" class="form-control form-control-sm" style="font-size:16px;">
+			         </div>
+			         <div>
+			            <button type="button" class="btn btn-primary btn-sm search-btn">조회</button>
+			         </div>
+				</div>
+			      
+				<div class="text-end mt-3">
+					<a href="/board/write" class="btn btn-primary btn-sm">등록</a>
+				</div>
+			      
+				<div class="mt-2">
+					<table class="table">
 						<tbody>
-							<tr>
-								<th class="table-active">* 구분</th>
-								<td class="">
-									<label for="categorySelect" class="form-label"></label>
-									<select name="category" class="" id="categorySelect">
-										<option value="공지">공지</option>
-										<option value="자유">자유</option>
-										<option value="질문">질문</option>
-									</select>
-								</td>
-								<th class="table-active">* 게시기간</th>
-								<td>
-									<input type="checkbox" value="" name="">
-									<span style="font-size:15px;" class="mx-1">무제한</span>
-									<input type="date" class="me-1" name="startTime"> ~ 
-									<input type="date" class="ms-1" name="endTime">
-								</td>
-							</tr>
-							<tr>
-								<th class="table-active">* 제목</th>
-								<td colspan="4">
-									<input type="text" class="w-100" name="title">
-								</td>
-							</tr>
-							<tr>
-								<th class="table-active">* 내용</th>
-								<td colspan="3">
-									<textarea type="text" class="w-100" name="content" rows="15" style="resize: none;"></textarea>
-								</td>
+							<tr class="text-center" style="background-color:#7F7F7F; color:#fff">
+								<th style="width:10%;">번호</th>
+								<th style="width:10%;">구분</th>
+								<th style="width:50%;">제목</th>
+								<th style="width:10%;">등록자</th>
+								<th style="width:20%;">등록 일시</th>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<div class="text-center mt-3">
-					<button class="btn btn-primary m3-1 save-btn">저장</button>
-					<a href="/" class="btn btn-secondary ms-1">취소</a>
+				
+				<!-- 페이지네이션 -->
+				<div class="mt-4">
+					<ul class="pagination pagination-sm justify-content-center">
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&laquo;</a>
+						</li>
+						<li class="page-item disabled">
+							<a class="page-link" href="#">&lt;</a>
+						</li>
+						<li class="page-item active">
+							<a class="page-link" href="#">1</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">2</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">3</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">4</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">5</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">&gt;</a>
+						</li>
+						<li class="page-item">
+							<a class="page-link" href="#">&raquo;</a>
+						</li>
+					</ul>
 				</div>
+				
 			</div>
 		</div>
-		
-		
 	</div>
 </div>

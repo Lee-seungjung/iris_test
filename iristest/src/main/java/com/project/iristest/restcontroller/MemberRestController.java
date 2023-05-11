@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.project.iristest.component.SHA256Encrypt;
+import com.project.iristest.dto.BoardDto;
 import com.project.iristest.dto.MemberDto;
+import com.project.iristest.repository.BoardDao;
 import com.project.iristest.repository.MemberDao;
 import com.project.iristest.vo.LoginVO;
 
@@ -20,6 +22,8 @@ public class MemberRestController {
 	
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private BoardDao boardDao;
 	
 	@PostMapping("/login")
 	public boolean login(@RequestBody LoginVO inputVO, HttpSession session) {
@@ -47,5 +51,7 @@ public class MemberRestController {
 	public boolean mypage(@RequestBody MemberDto dto) {
 		return memberDao.update(dto);
 	}
+	
+	
 	
 }
