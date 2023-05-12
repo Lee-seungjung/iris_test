@@ -1,5 +1,8 @@
 package com.project.iristest.repository;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -32,8 +35,11 @@ public class MemberDaoImpl implements MemberDao{
 	 * pw 확인
 	 */
 	@Override
-	public MemberDto pwCheck(String pw) {
-		return sqlSession.selectOne("member.pwCheck",pw);
+	public MemberDto pwCheck(String pw, String id) {
+		Map<String, String> map = new HashMap<>();
+		map.put("pw", pw);
+		map.put("id", id);
+		return sqlSession.selectOne("member.pwCheck",map);
 	}
 	
 	/**

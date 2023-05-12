@@ -23,8 +23,8 @@
 	</select>
 	
 	<!-- pw 확인(비밀번호) -->
-	<select id="pwCheck" resultType="MemberDto" parameterType="String">
-		select * from member where pw=#{pw}
+	<select id="pwCheck" resultType="MemberDto" parameterType="Map">
+		select * from member where pw=#{pw} and id=#{id}
 	</select>
 	
 	<!-- 회원정보 수정(MemberEditVO) -->

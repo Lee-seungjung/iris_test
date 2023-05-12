@@ -35,7 +35,7 @@ public class MemberRestController {
 				SHA256Encrypt encrypt = new SHA256Encrypt();
 				String pwCheck = encrypt.getEncrypt(inputVO.getPw(), saveSalt); //암호화 처리된 입력pw
 				
-				MemberDto pwCheckDto = memberDao.pwCheck(pwCheck);
+				MemberDto pwCheckDto = memberDao.pwCheck(pwCheck, dto.getId());
 				if(pwCheckDto!=null) {
 					session.setAttribute("loginNo", pwCheckDto.getMemberNo()); //세션 저장
 					return true;
