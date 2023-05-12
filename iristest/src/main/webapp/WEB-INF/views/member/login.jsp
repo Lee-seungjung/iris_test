@@ -12,6 +12,10 @@
 		padding:20px;
 		margin-top:200px;
 	}
+	.eye-icon{
+		position:absolute;
+		margin-left:85%;
+	}
 
 </style>
 
@@ -21,12 +25,16 @@
 		$("#loginModal").attr("style","display:none;");
 		
 		//비밀번호 숨김해제
-		$(".fa-eye").click(function(){
+		$(".eye-icon").click(function(){
 			var type = $("[name=pw]").attr("type");
 			if(type=='password'){
 				$("[name=pw]").attr("type","text");
+				$(".fa-eye-slash").attr("style","display:block;");
+				$(".fa-eye").attr("style","display:none;");
 			}else{
 				$("[name=pw]").attr("type","password");
+				$(".fa-eye-slash").attr("style","display:none");
+				$(".fa-eye").attr("style","display:block;");
 			}
 		});
 		
@@ -106,7 +114,8 @@
 							<div class="p-2 flex-grow-1 strong">비밀번호</div>
 							<div class="p-2 d-flex align-items-center" style="position:relative;">
 								<input type="password" name="pw"class="form-control w-100">
-								<i class="fa-solid fa-eye cursor-pointer" style="position:absolute; margin-left:85%;"></i>
+								<i class="fa-solid fa-eye cursor-pointer eye-icon"></i>
+								<i class="fa-solid fa-eye-slash cursor-pointer eye-icon" style="display:none;"></i>
 							</div>
 						</div>
 						<div>
