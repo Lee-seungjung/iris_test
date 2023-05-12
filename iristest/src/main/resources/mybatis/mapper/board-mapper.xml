@@ -14,11 +14,15 @@
 	</insert>
 	
 	<!-- 조회 -->
-	<select id="selectList" resultType="BoardDto">
+	<select id="selectList" resultType="BoardDto" parameterType="Map">
 		select * from (
 			select board_no, category, title, writer, start_date from board 
-			where <![CDATA[start_date <= now() and end_time >= now() ]]>order by board_no desc
-		) a limit 0, 20
+				where <![CDATA[start_date <= now() and end_time >= now() ]]>
+				<if test="type!='' and keyword!=''">
+					and instr(${type},#{keyword})>0
+				</if>
+			order by board_no desc
+		) a limit #{startNum}, #{endNum}
 	</select>
 	
 	

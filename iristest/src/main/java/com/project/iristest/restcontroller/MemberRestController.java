@@ -1,5 +1,7 @@
 package com.project.iristest.restcontroller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,11 @@ public class MemberRestController {
 	@PutMapping("/mypage")
 	public boolean mypage(@RequestBody MemberDto dto) {
 		return memberDao.update(dto);
+	}
+	
+	@PostMapping("/search")
+	public List<BoardDto> search(String type, String keyword, int startNum, int endNum){
+		return boardDao.list(type, keyword, startNum, endNum);
 	}
 	
 	

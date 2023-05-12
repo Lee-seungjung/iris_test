@@ -1,6 +1,8 @@
 package com.project.iristest.repository;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,12 +28,14 @@ public class BoardDaoImpl implements BoardDao{
 	 * 조회
 	 */
 	@Override
-	public List<BoardDto> list() {
-		return sqlSession.selectList("board.selectList");
+	public List<BoardDto> list(String type, String keyword, int startNum, int endNum) {
+		Map<String, Object> map = new HashMap<>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		map.put("startNum", startNum);
+		map.put("endNum", endNum);
+		return sqlSession.selectList("board.selectList",map);
 	}
-	
-	
-	
 	
 	
 }

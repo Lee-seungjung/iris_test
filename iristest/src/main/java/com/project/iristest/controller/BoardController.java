@@ -69,7 +69,11 @@ public class BoardController {
 		model.addAttribute("member",dto);
 		
 		//목록 출력
-		model.addAttribute("list", boardDao.list());
+		String type="";
+		String keyword="";
+		int startNum=0;
+		int endNum=20;
+		model.addAttribute("list", boardDao.list(type, keyword, startNum, endNum));
 		
 		return "board/list";
 	}

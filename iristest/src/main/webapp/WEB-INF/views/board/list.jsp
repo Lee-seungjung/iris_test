@@ -40,15 +40,69 @@
 		//모달 숨기기
         $("#searchModal").attr("style","display:none;");
         
-        //조회 버튼
+        //조회 버튼 이벤트
         $(".search-btn").click(function(){
-           var input = $("[name=keyword]").val();
-           if(input.length==0){
-              $(".modal-text").text('검색어를 입력하여 주십시오.');
-              $("#searchModal").modal('show');
-              return;
-           }
+			var type = $("#type option:selected").val();
+            var keyword = $("#keyword").val();
+            var startNum = 0;
+            var endNum = 20;
+           
+			if(keyword.length==0){
+				$(".modal-text").text('검색어를 입력하여 주십시오.');
+				$("#searchModal").modal('show');
+				return;
+			}
+			if(type==''){
+				$(".modal-text").text('검색어 구분을 선택하여 주십시오.');
+				$("#searchModal").modal('show');
+				return;
+			}
+			selectAjax(type, keyword, startNum, endNum); //조회함수
         });
+        
+        //조회 ajax
+        function selectAjax(type, keyword, startNum, endNum){
+        	searchData = {
+					type:type,
+					keyword:keyword,
+					startNum:startNum,
+					endNum:endNum
+			}
+			$.ajax({
+				url:"/rest/search",
+				method:"post",
+				data:searchData,
+				success:function(resp){
+					tableTag(resp); //태그생성
+				}
+			});
+        }
+        
+        //테이블 태그
+        function tableTag(list){
+        	$("#tbody").empty();
+	         var tbody = $("#tbody");
+			if(list.length!=0){
+				for(var i=0; i<list.length; i++){
+		               var tr = $("<tr>").attr("class","text-center");
+		               var firTd = $("<td>").text(list[i].boardNo);
+		               var secTd = $("<td>").text(list[i].category);
+		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo);
+		               secTd.append(aTag);
+		               var thiTd = $("<td>").text(list[i].title);
+		               var fourTd = $("<td>").text(list[i].writer);
+		               var fifTd = $("<td>").text(list[i].startDate);
+		               tr.append(firTd).append(secTd).append(thiTd)
+		                  .append(fourTd).append(fifTd);
+		               tbody.append(tr);
+				}
+			}else{
+				var tr = $("<tr>").attr("class","text-center");
+	            var firTd = $("<td>").text("검색 결과가 없습니다").attr("colspan","5");
+	            tr.append(firTd);
+	            tbody.append(tr);
+			}
+        }
 
 		
 	});
@@ -73,14 +127,14 @@
 			            <span class="strong" style="font-size:16px;">> 검색어</span>
 			         </div>
 			         <div class="me-2">
-			            <select name="category" class="form-select form-select-sm" style="font-size:16px;">
-			               <option>검색어 구분</option>
+			            <select id="type" class="form-select form-select-sm" style="font-size:16px;">
+			               <option value="">검색어 구분</option>
 			               <option value="title">제목</option>
 			               <option value="writer">등록자</option>
 			            </select>
 			         </div>
 			         <div class="me-2">
-			            <input type="text" name="keyword" class="form-control form-control-sm" style="font-size:16px;">
+			            <input type="text" id="keyword" class="form-control form-control-sm" style="font-size:16px;">
 			         </div>
 			         <div>
 			            <button type="button" class="btn btn-primary btn-sm search-btn">조회</button>
@@ -93,15 +147,16 @@
 			      
 				<div class="mt-2">
 					<table class="table align-middle">
-						<tbody>
-							<tr class="text-center" style="background-color:#7F7F7F; color:#fff">
+						<thead>
+							<tr class="text-center" style="background-color:#343a40; color:#fff">
 								<th style="width:10%;">번호</th>
 								<th style="width:10%;">구분</th>
 								<th style="width:50%;">제목</th>
 								<th style="width:10%;">등록자</th>
 								<th style="width:20%;">등록 일시</th>
 							</tr>
-							
+						<thead>
+						<tbody id="tbody">	
 							<c:forEach var="list" items="${list}">
 								<tr class="text-center">
 									<td>${list.boardNo}</td>
@@ -113,7 +168,6 @@
 									<td>${list.startDate}</td>
 								</tr>
 							</c:forEach>
-							
 						</tbody>
 					</table>
 				</div>

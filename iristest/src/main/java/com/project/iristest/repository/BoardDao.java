@@ -10,7 +10,7 @@ public interface BoardDao {
 	void insert(BoardDto dto);
 	
 	//전체 조회
-	List<BoardDto> list();
+	List<BoardDto> list(String type, String keyword, int startNum, int endNum);
 	
 
 }
