@@ -42,8 +42,9 @@
 				category : false,
 				title : false,
 				content : false,
+				startTime:false,
 				allValid:function(){
-					return this.category && this.title && this.content;
+					return this.category && this.title && this.content && this.startTime;
 				}
 		};
 		
@@ -89,33 +90,37 @@
 			var minutes = ('0' + todayNow.getMinutes()).slice(-2);
 			var seconds = ('0' + todayNow.getSeconds()).slice(-2); 
 			var timeString = hours + ':' + minutes  + ':' + seconds;
-
-			if(inputCheck.allValid()){
-				var ck = $(".ckbox").prop("checked");			
-				if(ck){
-					console.log("ddddd");
-					if(startTime==''){
-						alert('게시기간을 선택해주세요.');
-					}else{
-						$("[name=startDate]").val(startTime+ ' ' +timeString);
-						$("[name=endTime]").val('9999-12-31 23:59:59');
-						console.log($("[name=startDate]").val());
-						$("#insert-form").submit();
-					}
+			var ck = $(".ckbox").prop("checked");			
+			if(ck){
+				if(startTime==''){
+					alert('게시기간을 선택해주세요.');
+					inputCheck.startTime=false;
 				}else{
-					console.log("sdgsdg");
-					if(startTime=='' || endTime==''){
-						alert('게시기간을 선택해주세요.');
+					if(startTime==today){ //시작날이 오늘날짜와 같으면 현재 시분초 붙이기
+						$("[name=startDate]").val(startTime+ ' ' +timeString);
 					}else{
 						$("[name=startDate]").val(startTime);
-						$("[name=endTime]").val(endTime+ ' ' +'23:59:59');
-						$("#insert-form").submit();
 					}
+					$("[name=endTime]").val('9999-12-31 23:59:59');
+					inputCheck.startTime=true;
 				}
-				console.log("여기까지오나");
-				console.log($("[name=startDate]").val());
-				console.log($("[name=endTime]").val());
-				
+			}else{
+				if(startTime=='' || endTime==''){
+					alert('게시기간을 선택해주세요.');
+					inputCheck.startTime=false;
+				}else{
+					if(startTime==today){
+						$("[name=startDate]").val(startTime+ ' ' +timeString);
+					}else{
+						$("[name=startDate]").val(startTime);
+					}
+					$("[name=endTime]").val(endTime+ ' ' +'23:59:59');
+					inputCheck.startTime=true;
+				}
+			}
+
+			if(inputCheck.allValid()){
+				$("#insert-form").submit();
 			}
 			
 			
