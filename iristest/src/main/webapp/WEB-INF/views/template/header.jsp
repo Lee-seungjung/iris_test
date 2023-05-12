@@ -4,10 +4,18 @@
 
 <!DOCTYPE html>
 <html>
-<%-- 헤더 --%>
 <head>
 <meta charset="UTF-8">
-<title></title>
+<title>
+	<c:choose>
+		<c:when test = "${param.title != null}">
+			${param.title}
+		</c:when>
+		<c:otherwise>
+			홈페이지
+		</c:otherwise>
+	</c:choose>
+</title>
  
 <!-- 글꼴 CDN -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -82,7 +90,7 @@
 			<c:choose>
 				<c:when test="${loginNo!=null}">
 					<span class="">안녕하세요. <a href="/mypage" class="strong">${member.name}</a> 님</span>
-					<a href="/logout" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그아웃</a>
+					<a href="/logout" class="btn btn-secondary my-2 ms-2 my-sm-0 strong" type="button">로그아웃</a>
 				</c:when>
 				<c:otherwise>
 					<a href="/login" class="btn btn-primary my-2 ms-2 my-sm-0" type="button">로그인</a>
