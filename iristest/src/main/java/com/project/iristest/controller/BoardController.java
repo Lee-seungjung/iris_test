@@ -37,7 +37,6 @@ public class BoardController {
 	//등록(post)
 	@PostMapping("/write")
 	public String insert(@ModelAttribute BoardDto dto) {
-		System.out.println(dto);
 		boardDao.insert(dto);
 		return "redirect:/board/list";
 	}

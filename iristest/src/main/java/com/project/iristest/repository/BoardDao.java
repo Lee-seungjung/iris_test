@@ -17,4 +17,7 @@ public interface BoardDao {
 	//수정
 	boolean update(BoardDto dto);
 	
+	//삭제
+	boolean delete(int boardNo);
+	
 }

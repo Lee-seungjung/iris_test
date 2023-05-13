@@ -30,10 +30,16 @@
 		) a limit #{startNum}, #{endNum}
 	</select>
 	
+	<!-- 수정 -->
 	<update id="update" parameterType="BoardDto">
 		update board set category=#{category}, title=#{title}, content=#{content},
 			start_date=#{startDate}, end_date=#{endDate} where board_no=#{boardNo}
 	</update>
+	
+	<!-- 삭제 -->
+	<delete id="delete" parameterType="int">
+		delete from board where board_no=#{boardNo}
+	</delete>
 	
 	
 </mapper>

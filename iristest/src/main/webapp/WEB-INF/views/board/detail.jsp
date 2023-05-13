@@ -24,12 +24,28 @@
 	.w-40{
 		width:40%;
 	}
+	.m-btn{
+		width:20%;
+	}
 </style>
 
 <script>
 	$(function(){
+		$(".delete-btn").click(function(){
+			$(".modal-text").text('게시글을 삭제하시겠습니까?');
+			$("#boardModal").modal('show');
+		});
 		
-		    
+		$(".modal-delete").click(function(){
+			var boardNo = $("[name=boardNo]").val();
+			$.ajax({
+				url:"/rest/board_delete?boardNo="+boardNo,
+				method:"delete",
+				success:function(){
+					location.href="/board/list";
+				}
+			});
+		});
 		
 	});
 </script>
@@ -70,7 +86,7 @@
 										</c:when>
 										<c:otherwise>
 											<span>${board.startDate} ~ ${board.endDate}</span>
-											<span>(${compareDay-nowDay}일 남음)</span>
+											<span>(${compareDay-nowDay+1}일 남음)</span>
 										</c:otherwise>
 									</c:choose>
 									
@@ -114,6 +130,23 @@
 			</div>
 		</div>
 		
+		<!-- hidden -->
+		<input type="hidden" name="boardNo" value="${board.boardNo}">
+		
+		<!-- 모달 -->
+		<div id="boardModal" class="modal fade" tabindex="-1">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-body text-center">
+						<span class="modal-text "></span>
+					</div>
+					<div class="modal-footer justify-content-center">
+						<button type="button" class="btn btn-primary m-btn modal-delete">예</button>
+						<button type="button" class="btn btn-secondary m-btn" data-bs-dismiss="modal">아니오</button>
+					</div>	
+				</div>
+			</div>
+		</div>
 		
 	</div>
 </div>

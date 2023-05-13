@@ -53,5 +53,12 @@ public class BoardDaoImpl implements BoardDao{
 		return sqlSession.update("board.update",dto)>0;
 	}
 	
+	/**
+	 * 삭제
+	 */
+	@Override
+	public boolean delete(int boardNo) {
+		return sqlSession.delete("board.delete",boardNo)>0;
+	}
 	
 }
