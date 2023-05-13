@@ -40,6 +40,13 @@
 		//모달 숨기기
         $("#searchModal").attr("style","display:none;");
         
+		//엔터키 이벤트
+        $("#keyword").on("keyup",function(key){
+	        if(key.keyCode==13) {
+	        	$(".search-btn").click();
+	        }
+        });
+        
         //조회 버튼 이벤트
         $(".search-btn").click(function(){
 			var type = $("#type option:selected").val();
@@ -69,7 +76,7 @@
 					endNum:endNum
 			}
 			$.ajax({
-				url:"/rest/search",
+				url:"/rest/board_search",
 				method:"post",
 				data:searchData,
 				success:function(resp){
@@ -86,8 +93,8 @@
 				for(var i=0; i<list.length; i++){
 		               var tr = $("<tr>").attr("class","text-center");
 		               var firTd = $("<td>").text(list[i].boardNo);
-		               var secTd = $("<td>").text(list[i].category);
-		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo);
+		               var secTd = $("<td>");
+		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo).text(list[i].category);
 		               secTd.append(aTag);
 		               var thiTd = $("<td>").text(list[i].title);
 		               var fourTd = $("<td>").text(list[i].writer);

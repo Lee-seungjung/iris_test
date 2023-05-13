@@ -20,36 +20,16 @@ import com.project.iristest.vo.LoginVO;
 
 @RestController
 @RequestMapping("/rest")
-public class MemberRestController {
+public class BoardRestController {
 	
 	@Autowired
 	private MemberDao memberDao;
+	@Autowired
+	private BoardDao boardDao;
 	
-	@PostMapping("/login")
-	public boolean login(@RequestBody LoginVO inputVO, HttpSession session) {
-		try {
-			MemberDto dto = memberDao.selectOne(inputVO.getId()); //회원여부 확인
-			
-			if(dto!=null) { //비밀번호 확인
-				String saveSalt = dto.getSalt(); //DB저장 salt
-				SHA256Encrypt encrypt = new SHA256Encrypt();
-				String pwCheck = encrypt.getEncrypt(inputVO.getPw(), saveSalt); //암호화 처리된 입력pw
-				
-				MemberDto pwCheckDto = memberDao.pwCheck(pwCheck, dto.getId());
-				if(pwCheckDto!=null) {
-					session.setAttribute("loginNo", pwCheckDto.getMemberNo()); //세션 저장
-					return true;
-				}
-			}
-			return false;
-		}catch(Exception e) {
-			return false;
-		}
-	}
-	
-	@PutMapping("/mypage")
-	public boolean mypage(@RequestBody MemberDto dto) {
-		return memberDao.update(dto);
+	@PostMapping("/board_search")
+	public List<BoardDto> search(String type, String keyword, int startNum, int endNum){
+		return boardDao.list(type, keyword, startNum, endNum);
 	}
 	
 	
