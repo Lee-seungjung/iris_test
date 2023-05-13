@@ -1,7 +1,5 @@
 package com.project.iristest.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.project.iristest.dto.BoardDto;
 import com.project.iristest.dto.MemberDto;
@@ -48,7 +47,6 @@ public class BoardController {
 	public String detail(HttpSession session, Model model, int boardNo) {
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
 		MemberDto dto = memberDao.selectOne(memberNo); 
-		
 		model.addAttribute("member",dto);
 		model.addAttribute("board", boardDao.selectOne(boardNo));
 		return "board/detail";
@@ -56,12 +54,20 @@ public class BoardController {
 	
 	//수정
 	@GetMapping("/edit")
-	public String edit(HttpSession session, Model model) {
+	public String edit(HttpSession session, Model model, int boardNo) {
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
 		MemberDto dto = memberDao.selectOne(memberNo); 
 		model.addAttribute("member",dto);
-		
+		model.addAttribute("board", boardDao.selectOne(boardNo));
 		return "board/edit";
+	}
+	
+	//수정(post)
+	@PostMapping("/edit")
+	public String edit(@ModelAttribute BoardDto dto, RedirectAttributes attr) {
+		boardDao.update(dto);
+		attr.addAttribute("boardNo",dto.getBoardNo());
+		return "redirect:/board/detail";
 	}
 	
 	//조회

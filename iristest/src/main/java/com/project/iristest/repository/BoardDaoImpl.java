@@ -44,6 +44,14 @@ public class BoardDaoImpl implements BoardDao{
 		map.put("endNum", endNum);
 		return sqlSession.selectList("board.selectList",map);
 	}
+
+	/**
+	 * 수정
+	 */
+	@Override
+	public boolean update(BoardDto dto) {
+		return sqlSession.update("board.update",dto)>0;
+	}
 	
 	
 }

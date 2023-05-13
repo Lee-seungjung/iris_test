@@ -14,5 +14,7 @@ public interface BoardDao {
 	//전체 조회
 	List<BoardDto> list(String type, String keyword, int startNum, int endNum);
 	
-
+	//수정
+	boolean update(BoardDto dto);
+	
 }

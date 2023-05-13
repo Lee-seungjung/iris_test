@@ -102,9 +102,14 @@
 					</table>
 				</div>
 				<div class="text-center mt-3">
-					<button class="btn btn-primary me-1 edit-btn">수정</button>
-					<button class="btn btn-primary delete-btn">삭제</button>
+				
+					<!-- 작성자 일치여부 확인 후 버튼 다르게 표시 -->
+					<c:if test="${member.memberNo eq board.memberNo}">
+						<a href="/board/edit?boardNo=${board.boardNo}" class="btn btn-primary me-1">수정</a>
+						<button class="btn btn-primary delete-btn">삭제</button>
+					</c:if>
 					<a href="/board/list" class="btn btn-secondary ms-1">목록</a>
+					
 				</div>
 			</div>
 		</div>

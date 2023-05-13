@@ -18,7 +18,7 @@
 		select * from board where board_no=#{boardNo}
 	</select>
 	
-	<!-- 전체 조회 -->
+	<!-- 전체/검색 조회 -->
 	<select id="selectList" resultType="BoardDto" parameterType="Map">
 		select * from (
 			select board_no, category, title, writer, write_date from board 
@@ -30,6 +30,10 @@
 		) a limit #{startNum}, #{endNum}
 	</select>
 	
+	<update id="update" parameterType="BoardDto">
+		update board set category=#{category}, title=#{title}, content=#{content},
+			start_date=#{startDate}, end_date=#{endDate} where board_no=#{boardNo}
+	</update>
 	
 	
 </mapper>
