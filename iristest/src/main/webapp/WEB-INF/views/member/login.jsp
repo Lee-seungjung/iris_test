@@ -47,6 +47,13 @@
 				}
 		};
 		
+		//엔터키 이벤트
+        $("[name=id], [name=pw]").on("keyup",function(key){
+	        if(key.keyCode==13) {
+	        	$(".login-btn").click();
+	        }
+        });
+		
 		//로그인
 		$(".login-btn").click(function(){
 			var idInput = $("[name=id]").val();
