@@ -14,7 +14,7 @@
 	</insert>
 	
 	<!-- 단일조회(번호) -->
-	<select id="selectOne">
+	<select id="selectOne" resultType="BoardDto" parameterType="int">
 		select * from board where board_no=#{boardNo}
 	</select>
 	

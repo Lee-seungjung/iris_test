@@ -93,10 +93,10 @@
 				for(var i=0; i<list.length; i++){
 		               var tr = $("<tr>").attr("class","text-center");
 		               var firTd = $("<td>").text(list[i].boardNo);
-		               var secTd = $("<td>");
-		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo).text(list[i].category);
-		               secTd.append(aTag);
-		               var thiTd = $("<td>").text(list[i].title);
+		               var secTd = $("<td>").text(list[i].category);
+		               var thiTd = $("<td>");
+		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo).text(list[i].title);
+		               thiTd.append(aTag);
 		               var fourTd = $("<td>").text(list[i].writer);
 		               var fifTd = $("<td>").text(list[i].writeDate);
 		               tr.append(firTd).append(secTd).append(thiTd)

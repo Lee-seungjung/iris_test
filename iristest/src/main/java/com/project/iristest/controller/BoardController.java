@@ -1,5 +1,7 @@
 package com.project.iristest.controller;
 
+import java.util.Date;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +45,12 @@ public class BoardController {
 
 	//상세
 	@GetMapping("/detail")
-	public String detail(HttpSession session, Model model) {
+	public String detail(HttpSession session, Model model, int boardNo) {
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
 		MemberDto dto = memberDao.selectOne(memberNo); 
-		model.addAttribute("member",dto);
 		
+		model.addAttribute("member",dto);
+		model.addAttribute("board", boardDao.selectOne(boardNo));
 		return "board/detail";
 	}
 	

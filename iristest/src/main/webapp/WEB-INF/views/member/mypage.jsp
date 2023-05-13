@@ -138,7 +138,7 @@
 								<td>
 									<label for="jobSelect"></label>
 									<select name="job" id="jobSelect">
-										<option value="개발">개발</option>
+										<option value="기획">기획</option>
 										<option value="관리">관리</option>
 										<option value="영업">영업</option>
 										<option value="생산">생산</option>
