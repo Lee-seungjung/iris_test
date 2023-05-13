@@ -26,10 +26,7 @@
 		$(".sb-write").addClass("active");
 		
 		//달력 설정
-		var now = Date.now() //현재 날짜를 밀리초로
-		var milli = new Date().getTimezoneOffset()*60000; //분단위를 밀리초로 변환
-		var today = new Date(now-milli).toISOString().split("T")[0]; //'2023-05-10T18:09:38.134Z' 반환
-		settingDate(today);
+		settingDate();
 		
 		//게시기간 무제한 체크박스 (비)활성화
 		$(".ckbox").click(function(){
@@ -42,9 +39,9 @@
 				category : false,
 				title : false,
 				content : false,
-				startTime:false,
+				startDate:false,
 				allValid:function(){
-					return this.category && this.title && this.content && this.startTime;
+					return this.category && this.title && this.content && this.startDate;
 				}
 		};
 		
@@ -54,8 +51,8 @@
 			var category = $("#categorySelect option:selected").val();
 			var title = $("[name=title]").val();
 			var content = $("[name=content]").val();
-			var startTime = $("#startDate").val();
-			var endTime = $("#endDate").val();
+			var startDate = $("#startDate").val();
+			var endDate = $("#endDate").val();
 			
 			//카테고리
 			if(category==''){
@@ -85,37 +82,24 @@
 			}
 			
 			//날짜
-			var todayNow = new Date();   
-			var hours = ('0' + todayNow.getHours()).slice(-2); 
-			var minutes = ('0' + todayNow.getMinutes()).slice(-2);
-			var seconds = ('0' + todayNow.getSeconds()).slice(-2); 
-			var timeString = hours + ':' + minutes  + ':' + seconds;
 			var ck = $(".ckbox").prop("checked");			
 			if(ck){
-				if(startTime==''){
+				if(startDate==''){
 					alert('게시기간을 선택해주세요.');
-					inputCheck.startTime=false;
+					inputCheck.startDate=false;
 				}else{
-					if(startTime==today){ //시작날이 오늘날짜와 같으면 현재 시분초 붙이기
-						$("[name=startDate]").val(startTime+ ' ' +timeString);
-					}else{
-						$("[name=startDate]").val(startTime);
-					}
-					$("[name=endTime]").val('9999-12-31 23:59:59');
-					inputCheck.startTime=true;
+					$("[name=startDate]").val(startDate);
+					$("[name=endDate]").val("9999-12-31");
+					inputCheck.startDate=true;
 				}
 			}else{
-				if(startTime=='' || endTime==''){
+				if(startDate=='' || endDate==''){
 					alert('게시기간을 선택해주세요.');
-					inputCheck.startTime=false;
+					inputCheck.startDate=false;
 				}else{
-					if(startTime==today){
-						$("[name=startDate]").val(startTime+ ' ' +timeString);
-					}else{
-						$("[name=startDate]").val(startTime);
-					}
-					$("[name=endTime]").val(endTime+ ' ' +'23:59:59');
-					inputCheck.startTime=true;
+					$("[name=startDate]").val(startDate);
+					$("[name=endDate]").val(endDate);
+					inputCheck.startDate=true;
 				}
 			}
 
@@ -130,7 +114,10 @@
 		
 		
 		//달력 초기설정-이전날짜 막기&첫 달력날짜 오늘로 설정
-		function settingDate(today){
+		function settingDate(){
+			var now = Date.now() //현재 날짜를 밀리초로
+			var milli = new Date().getTimezoneOffset()*60000; //분단위를 밀리초로 변환
+			var today = new Date(now-milli).toISOString().split("T")[0]; //'2023-05-10T18:09:38.134Z' 반환
 			document.getElementById("startDate").setAttribute("min", today);
 			document.getElementById("endDate").setAttribute("min", today);
 			
@@ -189,7 +176,7 @@
 										<input type="date" class="ms-1" id="endDate" disabled>
 										<!-- 달력 실제로 넘어가는 값 -->
 										<input type="hidden" name="startDate">
-										<input type="hidden"name="endTime">
+										<input type="hidden"name="endDate">
 									</td>
 								</tr>
 								<tr>

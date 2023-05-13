@@ -91,7 +91,7 @@
 		               secTd.append(aTag);
 		               var thiTd = $("<td>").text(list[i].title);
 		               var fourTd = $("<td>").text(list[i].writer);
-		               var fifTd = $("<td>").text(list[i].startDate);
+		               var fifTd = $("<td>").text(list[i].writeDate);
 		               tr.append(firTd).append(secTd).append(thiTd)
 		                  .append(fourTd).append(fifTd);
 		               tbody.append(tr);
@@ -165,7 +165,7 @@
 										<a href="/board/detail?boardNo=${list.boardNo}">${list.title}</a>
 									</td>
 									<td>${list.writer}</td>
-									<td>${list.startDate}</td>
+									<td>${list.writeDate}</td>
 								</tr>
 							</c:forEach>
 						</tbody>

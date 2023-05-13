@@ -23,9 +23,17 @@ public class BoardDaoImpl implements BoardDao{
 	public void insert(BoardDto dto) {
 		sqlSession.insert("board.insert",dto);
 	}
+	
+	/**
+	 * 단일 조회
+	 */
+	@Override
+	public BoardDto selectOne(int boardNo) {
+		return sqlSession.selectOne("board.selectOne",boardNo);
+	}
 
 	/**
-	 * 조회
+	 * 전체 조회
 	 */
 	@Override
 	public List<BoardDto> list(String type, String keyword, int startNum, int endNum) {

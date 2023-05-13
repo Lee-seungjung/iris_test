@@ -9,6 +9,8 @@ public interface BoardDao {
 	//등록
 	void insert(BoardDto dto);
 	
+	//단일 조회
+	BoardDto selectOne(int boardNo);
 	//전체 조회
 	List<BoardDto> list(String type, String keyword, int startNum, int endNum);
 	
