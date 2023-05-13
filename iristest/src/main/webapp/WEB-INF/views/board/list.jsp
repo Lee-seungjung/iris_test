@@ -53,6 +53,7 @@
             var keyword = $("#keyword").val();
             var startNum = 0;
             var endNum = 20;
+            var page = 1;
            
 			if(keyword.length==0){
 				$(".modal-text").text('검색어를 입력하여 주십시오.');
@@ -64,23 +65,102 @@
 				$("#searchModal").modal('show');
 				return;
 			}
-			selectAjax(type, keyword, startNum, endNum); //조회함수
+			selectAjax(type, keyword, startNum, endNum, page); //조회함수
         });
         
+        //페이지네이션 조회
+        $(document).on("click",".pageNum",function(){
+        	var judge = $(this).parent().hasClass("active");
+        	if(judge) return; //불필요한 ajax 막기
+        	
+        	var page = $(this).text();
+        	var size = 20;
+        	var type = $("#type option:selected").val();
+            var keyword = $("#keyword").val();
+            var startNum = (page-1)*size;
+            var endNum = size;
+            
+            selectAjax(type, keyword, startNum, endNum, page);
+        });
+        
+      	//제일 처음 블럭
+        $(document).on("click",".first-block",function(){
+        	var nowBlock = $(".active").children().text();
+        	if(nowBlock==1) return;
+        	
+        	var size = 20;
+        	var type = $("#type option:selected").val();
+            var keyword = $("#keyword").val();
+            var startNum = 0;
+            var endNum = size;
+            
+            selectAjax(type, keyword, startNum, endNum, 1);
+        });
+        
+        //이전 블럭
+        $(document).on("click",".prev-block",function(){
+        	var nowBlock = $(".active").children().text();
+        	if(nowBlock==1) return;
+        	
+        	var page = parseInt(nowBlock)-1;
+        	var size = 20;
+        	var type = $("#type option:selected").val();
+            var keyword = $("#keyword").val();
+            var startNum = (page-1)*size;
+            var endNum = size;
+
+            selectAjax(type, keyword, startNum, endNum, page);
+        });
+        
+		//다음 블럭
+		$(document).on("click",".next-block",function(){
+	       	var lastBlock = $("[name=lastBlock]").val();
+	       	var nowBlock = $(".active").children().text();
+	       	if(nowBlock==lastBlock) return;
+	       	
+	       	var page = parseInt(nowBlock)+1;
+	       	var size = 20;
+	       	var type = $("#type option:selected").val();
+			var keyword = $("#keyword").val();
+			var startNum = (page-1)*size;
+			var endNum = size;
+
+            selectAjax(type, keyword, startNum, endNum, page);
+		});
+      
+		//제일 마지막 블럭
+        $(document).on("click",".last-block",function(){
+	       	var lastBlock = $("[name=lastBlock]").val();
+	       	var nowBlock = $(".active").children().text();
+	       	if(nowBlock==lastBlock) return;
+	       	
+	       	var page = lastBlock;
+	       	var size = 20;
+	       	var type = $("#type option:selected").val();
+			var keyword = $("#keyword").val();
+			var startNum = (page-1)*size;
+			var endNum = size;
+
+            selectAjax(type, keyword, startNum, endNum, page);
+		});
+        
         //조회 ajax
-        function selectAjax(type, keyword, startNum, endNum){
+        function selectAjax(type, keyword, startNum, endNum, page){
         	searchData = {
 					type:type,
 					keyword:keyword,
 					startNum:startNum,
-					endNum:endNum
+					endNum:endNum,
+					page:page
 			}
 			$.ajax({
 				url:"/rest/board_search",
 				method:"post",
 				data:searchData,
 				success:function(resp){
-					tableTag(resp); //태그생성
+					tableTag(resp.boardList); //태그생성
+					paginationTag(resp.pagination) //페이지네이션 태그생성
+					$("[name=lastBlock]").val(resp.pagination.lastBlock); //검색시 count 변경
 				}
 			});
         }
@@ -110,7 +190,64 @@
 	            tbody.append(tr);
 			}
         }
-
+        
+      //페이지네이션 태그생성
+        function paginationTag(list){
+        	var pagination = $(".pagination");
+        	pagination.empty();
+        	
+        	var f_li = $("<li>");
+        	if(list.p==1){
+        		 f_li.attr("class","page-item disabled first-block");
+        	}else{
+        		f_li.attr("class","page-item first-block");
+        	}
+        	var f_a = $("<a>").attr("class","page-link").attr("href","#").text("«");
+        	f_li.append(f_a);
+        	
+        	var s_li = $("<li>");
+        	if(list.p==1){
+        		s_li.attr("class","page-item disabled prev-block");
+        	}else{
+        		s_li.attr("class","page-item prev-block");
+        	}
+        	var s_a = $("<a>").attr("class","page-link").attr("href","#").text("<");
+        	s_li.append(s_a);
+        	pagination.append(f_li).append(s_li);
+        	
+        	if(list.lastBlock>1){
+        		for(var i=1; i<=list.lastBlock; i++){
+        			var li = $("<li>");
+        			if(list.p==i){
+        				li.attr("class","page-item active");
+        			}else{
+        				li.attr("class","page-item");
+        			}
+            		var a = $("<a>").attr("class","page-link pageNum").attr("href","#").text(i);
+            		li.append(a);
+            		pagination.append(li);
+            	}
+        	}
+        	
+        	var t_li = $("<li>");
+        	if(list.p==list.lastBlock){
+        		t_li.attr("class","page-item disabled next-block");
+        	}else{
+        		t_li.attr("class","page-item next-block");
+        	}
+        	var t_a = $("<a>").attr("class","page-link").attr("href","#").text(">");
+        	t_li.append(t_a);
+        	
+        	var f_li = $("<li>");
+        	if(list.p==list.lastBlock){
+        		f_li.attr("class","page-item disabled last-block");
+        	}else{
+        		f_li.attr("class","page-item last-block");
+        	}
+        	var f_a = $("<a>").attr("class","page-link").attr("href","#").text("»");
+        	f_li.append(f_a);
+        	pagination.append(t_li).append(f_li);
+        }
 		
 	});
 </script>
@@ -134,7 +271,7 @@
 			            <span class="strong" style="font-size:16px;">> 검색어</span>
 			         </div>
 			         <div class="me-2">
-			            <select id="type" class="form-select form-select-sm" style="font-size:16px;">
+			            <select id="type" class="form-select form-select-sm cursor-pointer" style="font-size:16px;">
 			               <option value="">검색어 구분</option>
 			               <option value="title">제목</option>
 			               <option value="writer">등록자</option>
@@ -182,31 +319,33 @@
 				<!-- 페이지네이션 -->
 				<div class="mt-4">
 					<ul class="pagination pagination-sm justify-content-center">
-						<li class="page-item disabled">
+						<li class="page-item disabled first-block">
 							<a class="page-link" href="#">&laquo;</a>
 						</li>
-						<li class="page-item disabled">
+						<li class="page-item disabled prev-block">
 							<a class="page-link" href="#">&lt;</a>
 						</li>
-						<li class="page-item active">
-							<a class="page-link" href="#">1</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">2</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">3</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">4</a>
-						</li>
-						<li class="page-item">
-							<a class="page-link" href="#">5</a>
-						</li>
-						<li class="page-item">
+						
+						<!-- 블럭 생성 -->
+						<c:forEach var="i" begin="1" end="${pagination.lastBlock}" step="1" >
+							<c:choose>
+								<c:when test="${i==1}">
+									<li class="page-item active">
+										<a class="page-link pageNum" href="#">${i}</a>
+									</li>
+								</c:when>
+								<c:otherwise>
+									<li class="page-item">
+										<a class="page-link pageNum" href="#">${i}</a>
+									</li>
+								</c:otherwise>
+							</c:choose>
+						</c:forEach>
+
+						<li class="page-item next-block">
 							<a class="page-link" href="#">&gt;</a>
 						</li>
-						<li class="page-item">
+						<li class="page-item last-block">
 							<a class="page-link" href="#">&raquo;</a>
 						</li>
 					</ul>
@@ -214,6 +353,9 @@
 				
 			</div>
 		</div>
+		
+		<!-- hidden -->
+		<input type="hidden" name="lastBlock" value="${pagination.lastBlock}">
 		
 		<!-- 모달 -->
 		<div id="searchModal" class="modal fade" tabindex="-1">

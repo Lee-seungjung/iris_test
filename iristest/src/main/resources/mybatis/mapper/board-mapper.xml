@@ -18,6 +18,17 @@
 		select * from board where board_no=#{boardNo}
 	</select>
 	
+	<!-- 조회 count -->
+	<select id="listCnt" parameterType="Map" resultType="int">
+		select count(*) from (
+			select * from board 
+				where <![CDATA[start_date <= now() and ( end_date >= now())]]>
+				<if test="type!='' and keyword!=''">
+					and instr(${type},#{keyword})>0
+				</if>
+		) a
+	</select>
+	
 	<!-- 전체/검색 조회 -->
 	<select id="selectList" resultType="BoardDto" parameterType="Map">
 		select * from (

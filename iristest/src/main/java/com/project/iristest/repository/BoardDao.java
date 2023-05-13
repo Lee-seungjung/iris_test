@@ -11,7 +11,9 @@ public interface BoardDao {
 	
 	//단일 조회
 	BoardDto selectOne(int boardNo);
-	//전체 조회
+	//전체 조회 count
+	int listCnt(String type, String keyword);
+	//검색 조회
 	List<BoardDto> list(String type, String keyword, int startNum, int endNum);
 	
 	//수정

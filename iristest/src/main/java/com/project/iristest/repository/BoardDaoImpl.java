@@ -31,9 +31,20 @@ public class BoardDaoImpl implements BoardDao{
 	public BoardDto selectOne(int boardNo) {
 		return sqlSession.selectOne("board.selectOne",boardNo);
 	}
+	
+	/**
+	 * 전체 조회 count
+	 */
+	@Override
+	public int listCnt(String type, String keyword) {
+		Map<String, String> map = new HashMap<>();
+		map.put("type", type);
+		map.put("keyword", keyword);
+		return sqlSession.selectOne("board.listCnt",map);
+	}
 
 	/**
-	 * 전체 조회
+	 * 검색 조회
 	 */
 	@Override
 	public List<BoardDto> list(String type, String keyword, int startNum, int endNum) {

@@ -15,6 +15,7 @@ import com.project.iristest.dto.BoardDto;
 import com.project.iristest.dto.MemberDto;
 import com.project.iristest.repository.BoardDao;
 import com.project.iristest.repository.MemberDao;
+import com.project.iristest.vo.PaginationVO;
 
 @Controller
 @RequestMapping("/board")
@@ -81,7 +82,17 @@ public class BoardController {
 		String keyword="";
 		int startNum=0;
 		int endNum=20;
+		int count = boardDao.listCnt(type, keyword);
+
+		PaginationVO vo = new PaginationVO();
+		vo.setP(1);
+		vo.setCount(count);
+		vo.setStartNum(startNum);
+		vo.setEndNum(vo.getSize());
+		vo.setLastBlock(vo.lastBlock());
+		
 		model.addAttribute("list", boardDao.list(type, keyword, startNum, endNum));
+		model.addAttribute("pagination", vo);
 		
 		return "board/list";
 	}
