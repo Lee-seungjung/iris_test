@@ -63,7 +63,7 @@
 				inputCheck.id=true;
 				inputCheck.pw=true;
 			}else if(idInput==''){
-				$(".modal-text").text('비밀번호를 입력하여 주십시오.');
+				$(".modal-text").text('아이디를 입력하여 주십시오.');
 				$("#loginModal").modal('show');
 				inputCheck.pw=false;
 			}else{
@@ -88,7 +88,7 @@
 							$("#loginModal").modal('show');
 							inputCheck.pw=false;
 						}else{
-							location.href="/";
+							location.href="/mypage";
 						}
 					}
 				});

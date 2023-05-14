@@ -42,7 +42,7 @@
 				url:"/rest/board_delete?boardNo="+boardNo,
 				method:"delete",
 				success:function(){
-					location.href="/board/list";
+					location.href="/list";
 				}
 			});
 		});
@@ -121,10 +121,10 @@
 				
 					<!-- 작성자 일치여부 확인 후 버튼 다르게 표시 -->
 					<c:if test="${member.memberNo eq board.memberNo}">
-						<a href="/board/edit?boardNo=${board.boardNo}" class="btn btn-primary me-1">수정</a>
+						<a href="/edit?boardNo=${board.boardNo}" class="btn btn-primary me-1">수정</a>
 						<button class="btn btn-primary delete-btn">삭제</button>
 					</c:if>
-					<a href="/board/list" class="btn btn-secondary ms-1">목록</a>
+					<a href="/list" class="btn btn-primary ms-1">목록</a>
 					
 				</div>
 			</div>

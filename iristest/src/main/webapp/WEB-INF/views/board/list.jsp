@@ -3,7 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <jsp:include page="/WEB-INF/views/template/header.jsp">
-	<jsp:param value="게시글 목록" name="title"/>
+	<jsp:param value="게시판" name="title"/>
 </jsp:include>
 
 <style>
@@ -158,6 +158,8 @@
 				method:"post",
 				data:searchData,
 				success:function(resp){
+					console.log(resp.boardList);
+					console.log(resp.pagination);
 					tableTag(resp.boardList); //태그생성
 					paginationTag(resp.pagination) //페이지네이션 태그생성
 					$("[name=lastBlock]").val(resp.pagination.lastBlock); //검색시 count 변경
@@ -175,7 +177,7 @@
 		               var firTd = $("<td>").text(list[i].boardNo);
 		               var secTd = $("<td>").text(list[i].category);
 		               var thiTd = $("<td>");
-		               var aTag = $("<a>").attr("href","/board/detail?boardNo="+list[i].boardNo).text(list[i].title);
+		               var aTag = $("<a>").attr("href","/detail?boardNo="+list[i].boardNo).text(list[i].title);
 		               thiTd.append(aTag);
 		               var fourTd = $("<td>").text(list[i].writer);
 		               var fifTd = $("<td>").text(list[i].writeDate);
@@ -215,20 +217,25 @@
         	s_li.append(s_a);
         	pagination.append(f_li).append(s_li);
         	
-        	if(list.lastBlock>1){
-        		for(var i=1; i<=list.lastBlock; i++){
-        			var li = $("<li>");
-        			if(list.p==i){
-        				li.attr("class","page-item active");
-        			}else{
-        				li.attr("class","page-item");
-        			}
-            		var a = $("<a>").attr("class","page-link pageNum").attr("href","#").text(i);
-            		li.append(a);
-            		pagination.append(li);
-            	}
-        	}
-        	
+       		if(list.lastBlock==0){
+       			var li = $("<li>").attr("class","page-item active");
+           		var a = $("<a>").attr("class","page-link pageNum").attr("href","#").text(1);
+           		li.append(a);
+           		pagination.append(li);
+       		}else{
+       			for(var i=1; i<=list.lastBlock; i++){
+           			var li = $("<li>");
+           			if(list.p==i){
+           				li.attr("class","page-item active");
+           			}else{
+           				li.attr("class","page-item");
+           			}
+               		var a = $("<a>").attr("class","page-link pageNum").attr("href","#").text(i);
+               		li.append(a);
+               		pagination.append(li);
+               	}
+       		}
+
         	var t_li = $("<li>");
         	if(list.p==list.lastBlock){
         		t_li.attr("class","page-item disabled next-block");
@@ -286,7 +293,7 @@
 				</div>
 			      
 				<div class="text-end mt-3">
-					<a href="/board/write" class="btn btn-primary btn-sm">등록</a>
+					<a href="/write" class="btn btn-primary btn-sm">등록</a>
 				</div>
 			      
 				<div class="mt-2">
@@ -306,7 +313,7 @@
 									<td>${list.boardNo}</td>
 									<td>${list.category}</td>
 									<td>
-										<a href="/board/detail?boardNo=${list.boardNo}">${list.title}</a>
+										<a href="/detail?boardNo=${list.boardNo}">${list.title}</a>
 									</td>
 									<td>${list.writer}</td>
 									<td>${list.writeDate}</td>

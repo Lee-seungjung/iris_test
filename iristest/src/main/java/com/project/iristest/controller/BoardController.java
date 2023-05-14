@@ -18,7 +18,6 @@ import com.project.iristest.repository.MemberDao;
 import com.project.iristest.vo.PaginationVO;
 
 @Controller
-@RequestMapping("/board")
 public class BoardController {
 	
 	@Autowired
@@ -30,8 +29,12 @@ public class BoardController {
 	@GetMapping("/write")
 	public String insert(HttpSession session, Model model) {
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
-		MemberDto dto = memberDao.selectOne(memberNo); 
-		model.addAttribute("member",dto);
+		if(memberNo !=null) { 
+			MemberDto dto = memberDao.selectOne(memberNo); 
+			model.addAttribute("member",dto);
+		}else {
+			return "redirect:/login";
+		}
 		return "board/insert";
 	}
 	
@@ -39,15 +42,19 @@ public class BoardController {
 	@PostMapping("/write")
 	public String insert(@ModelAttribute BoardDto dto) {
 		boardDao.insert(dto);
-		return "redirect:/board/list";
+		return "redirect:/list";
 	}
 
 	//상세
 	@GetMapping("/detail")
 	public String detail(HttpSession session, Model model, int boardNo) {
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
-		MemberDto dto = memberDao.selectOne(memberNo); 
-		model.addAttribute("member",dto);
+		if(memberNo !=null) { 
+			 MemberDto dto = memberDao.selectOne(memberNo); 
+			 model.addAttribute("loginNo" , memberNo);
+			 model.addAttribute("member", dto);
+		}
+		
 		model.addAttribute("board", boardDao.selectOne(boardNo));
 		return "board/detail";
 	}
@@ -67,15 +74,17 @@ public class BoardController {
 	public String edit(@ModelAttribute BoardDto dto, RedirectAttributes attr) {
 		boardDao.update(dto);
 		attr.addAttribute("boardNo",dto.getBoardNo());
-		return "redirect:/board/detail";
+		return "redirect:/detail";
 	}
 	
 	//조회
 	@GetMapping("/list")
-	public String list(HttpSession session, Model model) {
+	public String list(HttpSession session, Model model) {	
 		Integer memberNo = (Integer)session.getAttribute("loginNo");
-		MemberDto dto = memberDao.selectOne(memberNo); 
-		model.addAttribute("member",dto);
+		if(memberNo !=null) { 
+			 MemberDto dto = memberDao.selectOne(memberNo); 
+			 model.addAttribute("member", dto);
+		}
 		
 		//목록 출력
 		String type="";

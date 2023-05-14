@@ -198,7 +198,7 @@
 					<span class="strong fs-14">• 글 수정</span>
 					<span class="fs-14">*표시 필수 입력 항목</span>
 				</div>
-				<form action="/board/edit" method="post" id="edit-form">
+				<form action="/edit" method="post" id="edit-form">
 					<div>
 						<table class="table align-middle">
 							<tbody>
@@ -241,7 +241,7 @@
 					</div>
 					<div class="text-center mt-3">
 						<button type="submit" class="btn btn-primary m3-1 save-btn">저장</button>
-						<a href="/board/detail?boardNo=${board.boardNo}" class="btn btn-secondary ms-1">취소</a>
+						<a href="/detail?boardNo=${board.boardNo}" class="btn btn-secondary ms-1">취소</a>
 					</div>
 					<!-- hidden 값 -->
 					<input type="hidden" name="boardNo" value="${board.boardNo}">
